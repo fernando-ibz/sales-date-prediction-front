@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphing with D3</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .chart-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 400px;
+        }
+        .bar {
+            fill-opacity: 0.8;
+        }
+        .bar:hover {
+            fill-opacity: 1;
+        }
+        .bar-label {
+            font-size: 12px;
+            fill: #333;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Graphing with D3</h1>
+        
+        <div class="input-section">
+            <label for="data-input">Source Data:</label>
+            <input type="text" id="data-input" placeholder="Example: 10,20,30,40,50">
+            <button id="update-btn">Update Data</button>
+        </div>
+        
+        <div class="chart-container">
+            <h2>Chart</h2>
+            <div id="chart"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const margin = {top: 30, right: 30, bottom: 50, left: 60};
+            const width = 700 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            
+            const colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'];
+            
+            const svg = d3.select("#chart")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+            
+            const x = d3.scaleBand()
+                .range([0, width])
+                .padding(0.2);
+            
+            const y = d3.scaleLinear()
+                .range([height, 0]);
+            
+            svg.append("g")
+                .attr("class", "axis axis-x")
+                .attr("transform", `translate(0,${height})`);
+            
+            svg.append("g")
+                .attr("class", "axis axis-y");
+            
+            svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -50)
+                .attr("x", -height / 2)
+                .attr("text-anchor", "middle")
+                .text("Value");
+            
+            function updateChart(data) {
+                x.domain(data.map((d, i) => i));
+                y.domain([0, d3.max(data, d => d) * 1.1]);
+                
+                svg.select(".axis-x")
+                    .call(d3.axisBottom(x).tickFormat(i => `Bar ${+i + 1}`));
+                
+                svg.select(".axis-y")
+                    .call(d3.axisLeft(y));
+                
+                const bars = svg.selectAll(".bar")
+                    .data(data);
+                
+                bars.exit().remove();
+                
+                bars.attr("x", (d, i) => x(i))
+                    .attr("y", d => y(d))
+                    .attr("width", x.bandwidth())
+                    .attr("height", d => height - y(d))
+                    .attr("fill", (d, i) => colors[i % colors.length]);
+                
+                bars.enter()
+                    .append("rect")
+                    .attr("class", "bar")
+                    .attr("x", (d, i) => x(i))
+                    .attr("y", d => y(d))
+                    .attr("width", x.bandwidth())
+                    .attr("height", d => height - y(d))
+                    .attr("fill", (d, i) => colors[i % colors.length]);
+                
+                const labels = svg.selectAll(".bar-label")
+                    .data(data);
+                
+                labels.exit().remove();
+                
+                labels.attr("x", (d, i) => x(i) + x.bandwidth() / 2)
+                    .attr("y", d => y(d) - 5)
+                    .text(d => d);
+                
+                labels.enter()
+                    .append("text")
+                    .attr("class", "bar-label")
+                    .attr("x", (d, i) => x(i) + x.bandwidth() / 2)
+                    .attr("y", d => y(d) - 5)
+                    .text(d => d);
+            }
+            
+            document.getElementById("update-btn").addEventListener("click", function() {
+                const input = document.getElementById("data-input").value;
+                
+                try {
+                    const data = input.split(',')
+                        .map(item => item.trim())
+                        .filter(item => item !== '')
+                        .map(item => {
+                            const num = parseInt(item, 10);
+                            if (isNaN(num)) {
+                                throw new Error(`"${item}" is not a valid number`);
+                            }
+                            return num;
+                        });
+                    
+                    if (data.length === 0) {
+                        alert("Please enter at least one valid number.");
+                        return;
+                    }
+                    
+                    updateChart(data);
+                } catch (error) {
+                    alert(`Error processing data: ${error.message}`);
+                }
+            });
+            
+            updateChart([10, 20, 30, 40, 50, 60, 70]);
+        });
+    </script>
+</body>
+</html>

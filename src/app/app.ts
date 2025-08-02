@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +9,14 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('sales-date-prediction');
+
+  constructor(private router: Router) { }
+
+  navigateToD3Chart() {
+    this.router.navigate(['/d3-chart']);
+  }
+
+  navigateToSalesDatePrediction() {
+    this.router.navigate(['/sales-date-prediction']);
+  }
 }

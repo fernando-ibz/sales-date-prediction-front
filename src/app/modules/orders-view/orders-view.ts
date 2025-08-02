@@ -2,30 +2,30 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Order } from '../../shared/models/order.model';
-import { OrderService } from '../../core/services/order.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { OrderService } from '../../core/services/order.service';
+import { Order } from '../../shared/models/order.model';
 
 @Component({
   selector: 'app-orders-view',
   standalone: true,
   imports: [
     CommonModule,
-    MatDialogModule,
-    MatTableModule,
-    MatProgressSpinnerModule,
     MatButtonModule,
+    MatDialogModule,
     MatPaginatorModule,
-    MatSortModule
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
   ],
   templateUrl: './orders-view.html',
   styleUrl: './orders-view.scss'
 })
 export class OrdersView implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['orderid', 'requireddate', 'shippeddate', 'shipname', 'shipaddress', 'shipcity'];
+  displayedColumns: string[] = ['orderId', 'requiredDate', 'shippedDate', 'shipName', 'shipAddress', 'shipCity'];
   dataSource: MatTableDataSource<Order> = new MatTableDataSource<Order>([]);
   isLoading = true;
   modalData!: { customerId: number, customerName: string }
@@ -54,7 +54,11 @@ export class OrdersView implements OnInit, AfterViewInit {
       next: (orders) => {
         this.dataSource = new MatTableDataSource(orders);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
+        
         this.isLoading = false;
       },
       error: (err) => {

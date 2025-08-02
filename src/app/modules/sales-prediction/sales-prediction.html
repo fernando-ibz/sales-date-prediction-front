@@ -11,14 +11,14 @@
   <div class="flex flex-col h-full">
     <div class="min-h-[10vw] max-h-[30vw] overflow-auto relative">
       <table mat-table [dataSource]="dataSource" matSort class="w-full">
-        <ng-container matColumnDef="companyname">
+        <ng-container matColumnDef="companyName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
-          <td mat-cell *matCellDef="let customer">{{ customer.companyname }}</td>
+          <td mat-cell *matCellDef="let customer">{{ customer.companyName }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="contactname">
+        <ng-container matColumnDef="contactName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Order Date</th>
-          <td mat-cell *matCellDef="let customer">{{ customer.contactname }}</td>
+          <td mat-cell *matCellDef="let customer">{{ customer.contactName }}</td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
@@ -31,11 +31,11 @@
           <td mat-cell *matCellDef="let customer">
             <div class="flex justify-end">
               <button mat-raised-button class="custom-button-red"
-                (click)="openOrdersView(customer.custid, customer.companyname)">
+                (click)="openOrdersView(customer.custId, customer.companyName)">
                 VIEW ORDERS
               </button>
               <button mat-raised-button class="custom-button-green"
-                (click)="openNewOrder(customer.custid, customer.companyname)">
+                (click)="openNewOrder(customer.custId, customer.companyName)">
                 NEW ORDER
               </button>
             </div>
@@ -47,6 +47,6 @@
       </table>
     </div>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+    <mat-paginator class="no-border-paginator" [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
   </div>
 </div>

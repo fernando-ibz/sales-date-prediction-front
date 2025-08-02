@@ -8,4 +8,31 @@
     color: #4c9950 !important;
     font-weight: 500 !important;
   }
+
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+    background: rgb(255, 255, 255) !important;
+  }
+
+  .mat-mdc-option.mdc-list-item {
+    background: rgb(255, 255, 255) !important;
+  }
+
+  .mat-mdc-select-panel {
+    background: rgb(255, 255, 255) !important;
+  }
+
+  .mat-mdc-select-value-text {
+    padding-left: 40% !important;
+  }
+
+  .no-border-paginator {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+
+    .mat-paginator-container {
+      border: none;
+      padding: 0;
+    }
+  }
 }

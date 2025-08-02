@@ -1,9 +1,22 @@
 <header class="bg-black text-white py-4 px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
   <div class="container mx-auto flex justify-between items-center">
     <h1 class="text-xl">Sales Date Prediction App</h1>
-    <img
-      src="https://cloud-1de12d.b-cdn.net/media/iW=133&iH=79&oX=0&oY=0&cW=133&cH=79/3c7af13deb339c2f531619653131f837/NSerio-WhiteN-Transparent-small-0-1x.png"
-      alt="Logo" class="h-10 w-auto">
+
+    <div class="flex items-center gap-3">
+      <button (click)="navigateToSalesDatePrediction()"
+        class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded cursor-pointer transition-colors">
+        Sales Date Prediction App
+      </button>
+      
+      <button (click)="navigateToD3Chart()"
+        class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded cursor-pointer transition-colors">
+        D3 Chart
+      </button>
+
+      <img
+        src="https://cloud-1de12d.b-cdn.net/media/iW=133&iH=79&oX=0&oY=0&cW=133&cH=79/3c7af13deb339c2f531619653131f837/NSerio-WhiteN-Transparent-small-0-1x.png"
+        alt="Logo" class="h-10 w-auto">
+    </div>
   </div>
 </header>
 

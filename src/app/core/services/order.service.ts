@@ -19,7 +19,7 @@
 //     return this.http.post<Order>(this.apiUrl, order);
 //   }
 // }
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { OrderDetail } from '../../shared/models/order-detail.model';
@@ -29,17 +29,20 @@ import { Order } from '../../shared/models/order.model';
   providedIn: 'root'
 })
 export class OrderService {
-  private mockOrders: Order[] = [];
-  private lastOrderId = 0;
+  private lastorderId = 0;
+  orders: WritableSignal<Order[]> = signal([]);
 
   constructor() {
     this.initializeMockData();
   }
 
   private initializeMockData(): void {
+    let mockOrders: Order[] = [];
+
     for (let i = 1; i <= 15; i++) {
       const orderDate = this.randomDate(new Date(2022, 0, 1), new Date());
       const requiredDate = new Date(orderDate);
+
       requiredDate.setDate(requiredDate.getDate() + Math.floor(Math.random() * 30) + 7);
 
       const shippedDate = Math.random() > 0.2
@@ -53,40 +56,42 @@ export class OrderService {
       let ordersQuantity = Math.floor(Math.random() * 20) + 1
 
       for (let o = 1; o <= ordersQuantity; o++) {
-        this.mockOrders.push({
-          orderid: Math.floor(Math.random() * 50) + 1,
-          custid: i,
-          empid: Math.floor(Math.random() * 10) + 1,
-          orderdate: orderDate,
-          requireddate: requiredDate,
-          shippeddate: shippedDate,
-          shipperid: Math.floor(Math.random() * 3) + 1,
+        mockOrders.push({
+          orderId: Math.floor(Math.random() * 50) + 1,
+          custId: i,
+          empId: Math.floor(Math.random() * 10) + 1,
+          orderDate: orderDate,
+          requiredDate: requiredDate,
+          shippedDate: shippedDate,
+          shipperId: Math.floor(Math.random() * 3) + 1,
           freight: parseFloat((Math.random() * 100).toFixed(2)),
-          shipname: `Customer ${i}`,
-          shipaddress: `${Math.floor(Math.random() * 1000) + 1} Main St`,
-          shipcity: ['New York', 'London', 'Berlin', 'Tokyo', 'Sydney'][Math.floor(Math.random() * 5)],
-          shipregion: ['NY', 'LN', 'BE', 'TK', 'SY'][Math.floor(Math.random() * 5)],
-          shippostalcode: Math.floor((Math.random() * 90000) + 10000).toString(),
-          shipcountry: ['USA', 'UK', 'Germany', 'Japan', 'Australia'][Math.floor(Math.random() * 5)],
+          shipName: `Customer ${i}`,
+          shipAddress: `${Math.floor(Math.random() * 1000) + 1} Main St`,
+          shipCity: ['New York', 'London', 'Berlin', 'Tokyo', 'Sydney'][Math.floor(Math.random() * 5)],
+          shipRegion: ['NY', 'LN', 'BE', 'TK', 'SY'][Math.floor(Math.random() * 5)],
+          shipPostalCode: Math.floor((Math.random() * 90000) + 10000).toString(),
+          shipCountry: ['USA', 'UK', 'Germany', 'Japan', 'Australia'][Math.floor(Math.random() * 5)],
           orderDetails: this.generateOrderDetails(i)
         });
       }
+
     }
 
-    this.lastOrderId = 100;
+    this.orders.set(mockOrders);
+    this.lastorderId = 100;
   }
 
   private generateOrderDetails(orderId: number): OrderDetail[] {
-    const detailCount = Math.floor(Math.random() * 5) + 1; // 1-5 items per order
+    const detailCount = Math.floor(Math.random() * 5) + 1;
     const details: OrderDetail[] = [];
 
     for (let i = 1; i <= detailCount; i++) {
       details.push({
-        orderid: orderId,
-        productid: Math.floor(Math.random() * 50) + 1,
-        unitprice: parseFloat((Math.random() * 100 + 10).toFixed(2)),
+        orderId: orderId,
+        productId: Math.floor(Math.random() * 50) + 1,
+        unitPrice: parseFloat((Math.random() * 100 + 10).toFixed(2)),
         qty: Math.floor(Math.random() * 10) + 1,
-        discount: parseFloat((Math.random() * 0.3).toFixed(3)) // 0-0.3 discount
+        discount: parseFloat((Math.random() * 0.3).toFixed(3))
       });
     }
 
@@ -98,64 +103,64 @@ export class OrderService {
   }
 
   getOrders(): Observable<Order[]> {
-    return of(this.mockOrders).pipe(delay(300));
+    return of(this.orders()).pipe(delay(300));
   }
 
   getOrderById(id: number): Observable<Order | undefined> {
-    const order = this.mockOrders.find(o => o.orderid === id);
+    const order = this.orders().find(o => o.orderId === id);
     return of(order).pipe(delay(300));
   }
 
   getOrdersByCustomer(customerId: number): Observable<Order[]> {
-    const orders = this.mockOrders.filter(order => order.custid === customerId);
+    const orders = this.orders().filter(order => order.custId === customerId);
     return of(orders).pipe(delay(300));
   }
 
   getOrdersByEmployee(employeeId: number): Observable<Order[]> {
-    const orders = this.mockOrders.filter(order => order.empid === employeeId);
+    const orders = this.orders().filter(order => order.empId === employeeId);
     return of(orders).pipe(delay(300));
   }
 
   createOrder(order: Partial<Order>): Observable<Order> {
     const newOrder: Order = {
-      orderid: ++this.lastOrderId,
-      custid: order.custid || 0,
-      empid: order.empid || 1,
-      orderdate: order.orderdate || new Date(),
-      requireddate: order.requireddate || new Date(),
-      shippeddate: order.shippeddate,
-      shipperid: order.shipperid || 1,
+      orderId: ++this.lastorderId,
+      custId: order.custId || 0,
+      empId: order.empId || 1,
+      orderDate: order.orderDate || new Date(),
+      requiredDate: order.requiredDate || new Date(),
+      shippedDate: order.shippedDate,
+      shipperId: order.shipperId || 1,
       freight: order.freight || 0,
-      shipname: order.shipname || 'New Order',
-      shipaddress: order.shipaddress || '123 Main St',
-      shipcity: order.shipcity || 'New York',
-      shipregion: order.shipregion,
-      shippostalcode: order.shippostalcode || '10001',
-      shipcountry: order.shipcountry || 'USA',
+      shipName: order.shipName || 'New Order',
+      shipAddress: order.shipAddress || '123 Main St',
+      shipCity: order.shipCity || 'New York',
+      shipRegion: order.shipRegion,
+      shipPostalCode: order.shipPostalCode || '10001',
+      shipCountry: order.shipCountry || 'USA',
       orderDetails: order.orderDetails || []
     };
 
-    this.mockOrders.push(newOrder);
+    this.orders().push(newOrder);
     return of(newOrder).pipe(delay(300));
   }
 
   updateOrder(id: number, order: Partial<Order>): Observable<Order> {
-    const index = this.mockOrders.findIndex(o => o.orderid === id);
+    const index = this.orders().findIndex(o => o.orderId === id);
     if (index >= 0) {
-      this.mockOrders[index] = { ...this.mockOrders[index], ...order };
-      return of(this.mockOrders[index]).pipe(delay(300));
+      this.orders()[index] = { ...this.orders()[index], ...order };
+      return of(this.orders()[index]).pipe(delay(300));
     }
     throw new Error('Order not found');
   }
 
   deleteOrder(id: number): Observable<void> {
-    this.mockOrders = this.mockOrders.filter(o => o.orderid !== id);
+    this.orders.set(this.orders().filter(o => o.orderId !== id));
     return of(undefined).pipe(delay(300));
   }
 
   getRecentOrders(count: number = 5): Observable<Order[]> {
-    const sorted = [...this.mockOrders].sort((a, b) =>
-      b.orderdate.getTime() - a.orderdate.getTime());
+    const sorted = [...this.orders()].sort((a, b) =>
+      b.orderDate.getTime() - a.orderDate.getTime());
     return of(sorted.slice(0, count)).pipe(delay(300));
   }
 }

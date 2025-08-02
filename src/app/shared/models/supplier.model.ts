@@ -1,12 +1,12 @@
 export interface Supplier {
-     supplierid: number;
-     companyname: string;
-     contactname: string;
-     contacttitle: string;
+     supplierId: number;
+     companyName: string;
+     contactName: string;
+     contactTitle: string;
      address: string;
      city: string;
      region?: string;
-     postalcode?: string;
+     postalCode?: string;
      country: string;
      phone: string;
      fax?: string;

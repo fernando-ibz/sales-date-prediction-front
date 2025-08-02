@@ -8,6 +8,9 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { OrderService } from '../../core/services/order.service';
+import { Order } from '../../shared/models/order.model';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-new-order',
@@ -19,7 +22,10 @@ import { OrderService } from '../../core/services/order.service';
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule],
+    MatNativeDateModule,
+    MatSelectModule,
+    MatDividerModule
+  ],
   templateUrl: './new-order.html',
   styleUrl: './new-order.scss'
 })
@@ -38,6 +44,26 @@ export class NewOrder {
       quantity: [1, [Validators.required, Validators.min(1)]],
       unitPrice: [0, [Validators.required, Validators.min(0.01)]],
       orderDate: [new Date(), Validators.required]
+      // employee?: Employee;
+      // shipper?: Shipper;
+      // shipName: string;
+      // shipAddress: string;
+      // shipCity: string;
+      // shipCountry: string;
+      // orderDate: Date;
+      // requiredDate: Date;
+      // shippedDate?: Date;
+      // freight: number;
+
+      // orderId: number;
+      // custId?: number;
+      // empId: number;
+      // shipperId: number;
+      // shipRegion?: string;
+      // shipPostalCode?: string;
+
+      // customer?: Customer;
+      // orderDetails?: OrderDetail[];
     });
   }
 
@@ -45,7 +71,7 @@ export class NewOrder {
     if (this.orderForm.invalid) return;
 
     this.isSubmitting = true;
-    const orderData = {
+    const orderData: Order = {
       customerId: this.data.customerId,
       ...this.orderForm.value
     };

@@ -4,20 +4,20 @@ import { Shipper } from './shipper.model';
 import { OrderDetail } from './order-detail.model';
 
 export interface Order {
-  orderid: number;
-  custid?: number;
-  empid: number;
-  orderdate: Date;
-  requireddate: Date;
-  shippeddate?: Date;
-  shipperid: number;
+  orderId: number;
+  custId?: number;
+  empId: number;
+  orderDate: Date;
+  requiredDate: Date;
+  shippedDate?: Date;
+  shipperId: number;
   freight: number;
-  shipname: string;
-  shipaddress: string;
-  shipcity: string;
-  shipregion?: string;
-  shippostalcode?: string;
-  shipcountry: string;
+  shipName: string;
+  shipAddress: string;
+  shipCity: string;
+  shipRegion?: string;
+  shipPostalCode?: string;
+  shipCountry: string;
 
   customer?: Customer;
   employee?: Employee;

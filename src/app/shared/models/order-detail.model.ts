@@ -2,9 +2,9 @@ import { Product } from './product.model';
 import { Order } from './order.model';
 
 export interface OrderDetail {
-     orderid: number;
-     productid: number;
-     unitprice: number;
+     orderId: number;
+     productId: number;
+     unitPrice: number;
      qty: number;
      discount: number;
 

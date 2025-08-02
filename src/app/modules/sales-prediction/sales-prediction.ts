@@ -32,8 +32,8 @@ import { OrdersView } from '../orders-view/orders-view';
   templateUrl: './sales-prediction.html',
   styleUrls: ['./sales-prediction.scss']
 })
-export class SalesPrediction implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['companyname', 'contactname', 'phone', 'actions'];
+export class SalesDatePrediction implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['companyName', 'contactName', 'phone', 'actions'];
   dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Customer>([]);
   isLoading = true;
 
@@ -86,7 +86,7 @@ export class SalesPrediction implements OnInit, AfterViewInit {
 
   openNewOrder(customerId: number, customerName: string): void {
     const dialogRef = this.dialog.open(NewOrder, {
-      width: '25vw',
+      width: '35vw',
       maxWidth: 'none',
       data: { customerId, customerName }
     });

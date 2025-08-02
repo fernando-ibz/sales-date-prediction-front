@@ -2,11 +2,11 @@ import { Supplier } from './supplier.model';
 import { Category } from './category.model';
 
 export interface Product {
-     productid: number;
-     productname: string;
-     supplierid: number;
-     categoryid: number;
-     unitprice: number;
+     productId: number;
+     productName: string;
+     supplierId: number;
+     categoryId: number;
+     unitPrice: number;
      discontinued: boolean;
      supplier?: Supplier;
      category?: Category;

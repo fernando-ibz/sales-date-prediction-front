@@ -1,5 +1,9 @@
-<h2 mat-dialog-title class="bg-[#b52c2d] text-white p-4 -mx-6 -mt-6 mb-4">Customer {{data.customerName}} - Orders
-</h2>
+<div class="bg-[#b52c2d] shadow-md">
+  <div class="items-center p-5">
+    <h1 class="text-xl text-white">Customer {{data.customerName}} - Orders</h1>
+  </div>
+</div>
+
 <mat-dialog-content>
   <div *ngIf="isLoading" class="flex justify-center p-8">
     <mat-spinner></mat-spinner>
@@ -8,34 +12,34 @@
   <div class="flex flex-col h-full">
     <div *ngIf="!isLoading" class="min-h-[10vw] max-h-[25vw] overflow-auto relative">
       <table mat-table [dataSource]="dataSource" matSort class="w-full">
-        <ng-container matColumnDef="orderid">
+        <ng-container matColumnDef="orderId">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</th>
-          <td mat-cell *matCellDef="let order">{{ order.orderid }}</td>
+          <td mat-cell *matCellDef="let order">{{ order.orderId }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="requireddate">
+        <ng-container matColumnDef="requiredDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Required Date</th>
-          <td mat-cell *matCellDef="let order">{{ order.requireddate | date}}</td>
+          <td mat-cell *matCellDef="let order">{{ order.requiredDate | date}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="shippeddate">
+        <ng-container matColumnDef="shippedDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Shipped Date</th>
-          <td mat-cell *matCellDef="let order">{{ order.shippeddate | date}}</td>
+          <td mat-cell *matCellDef="let order">{{ order.shippedDate | date}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="shipname">
+        <ng-container matColumnDef="shipName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship Name</th>
-          <td mat-cell *matCellDef="let order">{{ order.shipname }}</td>
+          <td mat-cell *matCellDef="let order">{{ order.shipName }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="shipaddress">
+        <ng-container matColumnDef="shipAddress">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship Address</th>
-          <td mat-cell *matCellDef="let order">{{ order.shipaddress }}</td>
+          <td mat-cell *matCellDef="let order">{{ order.shipAddress }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="shipcity">
+        <ng-container matColumnDef="shipCity">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship City</th>
-          <td mat-cell *matCellDef="let order">{{ order.shipcity }}</td>
+          <td mat-cell *matCellDef="let order">{{ order.shipCity }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,17 +1,17 @@
 export interface Employee {
-     empid: number;
-     lastname: string;
-     firstname: string;
+     empId: number;
+     lastName: string;
+     firstName: string;
      title: string;
-     titleofcourtesy: string;
-     birthdate: Date;
-     hiredate: Date;
+     titleOfCourtesy: string;
+     birthDate: Date;
+     hireDate: Date;
      address: string;
      city: string;
      region?: string;
-     postalcode?: string;
+     postalCode?: string;
      country: string;
      phone: string;
-     mgrid?: number;
+     mgrId?: number;
      manager?: Employee;
 }

@@ -1,12 +1,12 @@
 export interface Customer {
-  custid: number;
-  companyname: string;
-  contactname: string;
-  contacttitle: string;
+  custId: number;
+  companyName: string;
+  contactName: string;
+  contactTitle: string;
   address: string;
   city: string;
   region?: string;
-  postalcode?: string;
+  postalCode?: string;
   country: string;
   phone: string;
   fax?: string;
