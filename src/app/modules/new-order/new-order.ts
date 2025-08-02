@@ -84,44 +84,39 @@ export class NewOrder implements OnInit {
     this.getEmployees();
     this.getShippers();
     this.getProducts();
-
-    debugger
   }
 
   getEmployees() {
-    if (this._employeeService.employees().length <= 0)
-      this._employeeService.getEmployees().subscribe(
-        response => {
-          if (response) {
-            this._employeeService.employees.set(response);
-            this.employees = this._employeeService.employees();
-          }
+    this._employeeService.getEmployees().subscribe(
+      response => {
+        if (response) {
+          this._employeeService.employees.set(response);
+          this.employees = this._employeeService.employees();
         }
-      );
+      }
+    );
   }
 
   getShippers() {
-    if (this._shipperService.shippers().length <= 0)
-      this._shipperService.getShippers().subscribe(
-        response => {
-          if (response) {
-            this._shipperService.shippers.set(response);
-            this.shippers = this._shipperService.shippers();
-          }
+    this._shipperService.getShippers().subscribe(
+      response => {
+        if (response) {
+          this._shipperService.shippers.set(response);
+          this.shippers = this._shipperService.shippers();
         }
-      );
+      }
+    );
   }
 
   getProducts() {
-    if (this._productService.products().length <= 0)
-      this._productService.getProducts().subscribe(
-        response => {
-          if (response) {
-            this._productService.products.set(response);
-            this.products = this._productService.products();
-          }
+    this._productService.getProducts().subscribe(
+      response => {
+        if (response) {
+          this._productService.products.set(response);
+          this.products = this._productService.products();
         }
-      );
+      }
+    );
   }
 
   onSubmit(): void {

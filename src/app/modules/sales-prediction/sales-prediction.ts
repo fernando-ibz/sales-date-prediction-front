@@ -57,18 +57,20 @@ export class SalesDatePrediction implements OnInit, AfterViewInit {
 
   loadCustomers(): void {
     this.isLoading = true;
-    this._customerService.getCustomers().subscribe(
-      response => {
+    this._customerService.getCustomers().subscribe({
+      next: (response) => {
         if (response) {
           this._customerService.customers.set(response);
-
           this.dataSource = new MatTableDataSource(this._customerService.customers());
-
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
       }
-    );
+    });
   }
 
   applyFilter(event: Event): void {
