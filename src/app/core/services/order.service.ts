@@ -22,11 +22,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Order } from '../models/order.model';
-import { Customer } from '../models/customer.model';
-import { Employee } from '../models/employee.model';
-import { Shipper } from '../models/shipper.model';
-import { OrderDetail } from '../models/order-detail.model';
+import { OrderDetail } from '../../shared/models/order-detail.model';
+import { Order } from '../../shared/models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +37,7 @@ export class OrderService {
   }
 
   private initializeMockData(): void {
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 15; i++) {
       const orderDate = this.randomDate(new Date(2022, 0, 1), new Date());
       const requiredDate = new Date(orderDate);
       requiredDate.setDate(requiredDate.getDate() + Math.floor(Math.random() * 30) + 7);
@@ -53,23 +50,27 @@ export class OrderService {
         shippedDate.setDate(orderDate.getDate() + Math.floor(Math.random() * 10) + 1);
       }
 
-      this.mockOrders.push({
-        orderid: i,
-        custid: Math.floor(Math.random() * 50) + 1,
-        empid: Math.floor(Math.random() * 10) + 1,
-        orderdate: orderDate,
-        requireddate: requiredDate,
-        shippeddate: shippedDate,
-        shipperid: Math.floor(Math.random() * 3) + 1,
-        freight: parseFloat((Math.random() * 100).toFixed(2)),
-        shipname: `Customer ${i}`,
-        shipaddress: `${Math.floor(Math.random() * 1000) + 1} Main St`,
-        shipcity: ['New York', 'London', 'Berlin', 'Tokyo', 'Sydney'][Math.floor(Math.random() * 5)],
-        shipregion: ['NY', 'LN', 'BE', 'TK', 'SY'][Math.floor(Math.random() * 5)],
-        shippostalcode: Math.floor((Math.random() * 90000) + 10000).toString(),
-        shipcountry: ['USA', 'UK', 'Germany', 'Japan', 'Australia'][Math.floor(Math.random() * 5)],
-        orderDetails: this.generateOrderDetails(i)
-      });
+      let ordersQuantity = Math.floor(Math.random() * 20) + 1
+
+      for (let o = 1; o <= ordersQuantity; o++) {
+        this.mockOrders.push({
+          orderid: Math.floor(Math.random() * 50) + 1,
+          custid: i,
+          empid: Math.floor(Math.random() * 10) + 1,
+          orderdate: orderDate,
+          requireddate: requiredDate,
+          shippeddate: shippedDate,
+          shipperid: Math.floor(Math.random() * 3) + 1,
+          freight: parseFloat((Math.random() * 100).toFixed(2)),
+          shipname: `Customer ${i}`,
+          shipaddress: `${Math.floor(Math.random() * 1000) + 1} Main St`,
+          shipcity: ['New York', 'London', 'Berlin', 'Tokyo', 'Sydney'][Math.floor(Math.random() * 5)],
+          shipregion: ['NY', 'LN', 'BE', 'TK', 'SY'][Math.floor(Math.random() * 5)],
+          shippostalcode: Math.floor((Math.random() * 90000) + 10000).toString(),
+          shipcountry: ['USA', 'UK', 'Germany', 'Japan', 'Australia'][Math.floor(Math.random() * 5)],
+          orderDetails: this.generateOrderDetails(i)
+        });
+      }
     }
 
     this.lastOrderId = 100;

@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Create New Order</h2>
+<h2 mat-dialog-title class="bg-[#4c9950] text-white p-4 -mx-6 -mt-6 mb-4">Customer {{data.customerName}} - New Order
+</h2>
 <mat-dialog-content>
   <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <mat-form-field appearance="outline">
@@ -34,13 +35,10 @@
     </mat-form-field>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button 
-    mat-raised-button 
-    color="primary" 
-    (click)="onSubmit()"
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="custom-button-green">Close</button>
+  <button mat-raised-button class="custom-button-green" (click)="onSubmit()"
     [disabled]="orderForm.invalid || isSubmitting">
-    {{ isSubmitting ? 'Creating...' : 'Create Order' }}
+    {{ isSubmitting ? 'Saving...' : 'Save' }}
   </button>
 </mat-dialog-actions>

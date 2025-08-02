@@ -9,8 +9,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
-import { Customer } from '../../models/customer.model';
-import { CustomerService } from '../../services/customer.service';
+import { Customer } from '../../shared/models/customer.model';
+import { CustomerService } from '../../core/services/customer.service';
 import { NewOrder } from '../new-order/new-order';
 import { OrdersView } from '../orders-view/orders-view';
 
@@ -58,8 +58,9 @@ export class SalesPrediction implements OnInit, AfterViewInit {
     this.isLoading = true;
     this.customerService.getCustomers(filter).subscribe({
       next: (customers) => {
-        this.dataSource.data = customers;
-        this.isLoading = false;
+        this.dataSource = new MatTableDataSource(customers);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error: (err) => {
         console.error('Error loading customers', err);
@@ -70,24 +71,24 @@ export class SalesPrediction implements OnInit, AfterViewInit {
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.dataSource.filter = filterValue;
-    
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+
+    if (filterValue.length > 3)
+      console.log(filterValue);
   }
 
-  openOrdersView(customerId: number): void {
+  openOrdersView(customerId: number, customerName: string): void {
     this.dialog.open(OrdersView, {
-      width: '800px',
-      data: { customerId }
+      width: '60vw',
+      maxWidth: 'none',
+      data: { customerId, customerName }
     });
   }
 
-  openNewOrder(customerId: number): void {
+  openNewOrder(customerId: number, customerName: string): void {
     const dialogRef = this.dialog.open(NewOrder, {
-      width: '600px',
-      data: { customerId }
+      width: '25vw',
+      maxWidth: 'none',
+      data: { customerId, customerName }
     });
 
     dialogRef.afterClosed().subscribe(result => {

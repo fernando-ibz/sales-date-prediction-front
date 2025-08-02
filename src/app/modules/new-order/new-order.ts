@@ -7,7 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { OrderService } from '../../services/order.service';
+import { OrderService } from '../../core/services/order.service';
 
 @Component({
   selector: 'app-new-order',
@@ -31,7 +31,7 @@ export class NewOrder {
     private fb: FormBuilder,
     private orderService: OrderService,
     private dialogRef: MatDialogRef<NewOrder>,
-    @Inject(MAT_DIALOG_DATA) public data: { customerId: string }
+    @Inject(MAT_DIALOG_DATA) public data: { customerId: string, customerName: string }
   ) {
     this.orderForm = this.fb.group({
       productName: ['', [Validators.required, Validators.minLength(3)]],
