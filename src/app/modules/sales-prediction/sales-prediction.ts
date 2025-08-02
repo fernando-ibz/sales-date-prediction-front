@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,7 +33,9 @@ import { OrdersView } from '../orders-view/orders-view';
   styleUrls: ['./sales-prediction.scss']
 })
 export class SalesDatePrediction implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['companyName', 'contactName', 'phone', 'actions'];
+  private _customerService = inject(CustomerService);
+
+  displayedColumns: string[] = ['companyName', 'nextPredictedOrder', 'lastOrderDate', 'actions'];
   dataSource: MatTableDataSource<Customer> = new MatTableDataSource<Customer>([]);
   isLoading = true;
 
@@ -41,7 +43,6 @@ export class SalesDatePrediction implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private customerService: CustomerService,
     private dialog: MatDialog
   ) { }
 
@@ -54,19 +55,20 @@ export class SalesDatePrediction implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  loadCustomers(filter: string = ''): void {
+  loadCustomers(): void {
     this.isLoading = true;
-    this.customerService.getCustomers(filter).subscribe({
-      next: (customers) => {
-        this.dataSource = new MatTableDataSource(customers);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: (err) => {
-        console.error('Error loading customers', err);
-        this.isLoading = false;
+    this._customerService.getCustomers().subscribe(
+      response => {
+        if (response) {
+          this._customerService.customers.set(response);
+
+          this.dataSource = new MatTableDataSource(this._customerService.customers());
+
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
       }
-    });
+    );
   }
 
   applyFilter(event: Event): void {

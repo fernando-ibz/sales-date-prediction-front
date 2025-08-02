@@ -10,4 +10,6 @@ export interface Customer {
   country: string;
   phone: string;
   fax?: string;
+  nextPredictedOrder?: Date;
+  lastOrderDate?: Date;
 }

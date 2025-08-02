@@ -13,16 +13,16 @@
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Employee</mat-label>
             <mat-select required>
-              <mat-option *ngFor="let employee of [1]" [value]="'employee.id'">
-                {{ 'employee.name' }}
+              <mat-option *ngFor="let employee of employees" [value]="employee.empId">
+                {{ `${employee.firstName} ${employee.lastName}` }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Shipper</mat-label>
             <mat-select required>
-              <mat-option *ngFor="let shipper of [1]" [value]="'shipper.id'">
-                {{ 'shipper.name' }}
+              <mat-option *ngFor="let shipper of shippers" [value]="shipper.shipperId">
+                {{ shipper.companyName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -86,8 +86,8 @@
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Product</mat-label>
             <mat-select required>
-              <mat-option *ngFor="let product of [1]" [value]="'product.id'">
-                {{ 'product.name' }}
+              <mat-option *ngFor="let product of products" [value]="product.productId">
+                {{ product.productName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
