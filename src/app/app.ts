@@ -9,14 +9,19 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('sales-date-prediction');
+  menuOpen = false;
 
   constructor(private router: Router) { }
 
-  navigateToD3Chart() {
-    this.router.navigate(['/d3-chart']);
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
   }
 
-  navigateToSalesDatePrediction() {
-    this.router.navigate(['/sales-date-prediction']);
+  navigateToSalesDatePrediction(): void {
+    this.router.navigate(['/sales-prediction']);
+  }
+
+  navigateToD3Chart(): void {
+    this.router.navigate(['/d3-chart']);
   }
 }
