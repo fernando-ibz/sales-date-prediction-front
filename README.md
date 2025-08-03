@@ -165,6 +165,7 @@ dotnet test --collect:"XPlat Code Coverage"
 - **Tailwind CSS**: Diseño utility-first para desarrollo rápido y consistente
 - **Reactive Forms**: Validaciones robustas y experiencia de usuario fluida
 - **Lazy Loading**: Optimización de rendimiento en la carga de módulos
+- **Interceptors**: Uso de interceptors para manejo global de errores HTTP
 
 ## 🔍 Consideraciones de Rendimiento
 
