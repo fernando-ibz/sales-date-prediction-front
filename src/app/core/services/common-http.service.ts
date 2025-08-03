@@ -25,12 +25,13 @@ export class CommonHttpService {
      public post<T>(
           api: string,
           endpoint: string,
+          body: any,
           params?: HttpParams,
           silentError: boolean = false
      ): Observable<T> {
           const headers = silentError ? new HttpHeaders({ 'X-Silent-Error': 'true' }) : undefined;
 
-          return this.http.post<T>(`${api}/${endpoint}`, {
+          return this.http.post<T>(`${api}/${endpoint}`, body, {
                params,
                headers
           });

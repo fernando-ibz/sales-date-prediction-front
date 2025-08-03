@@ -76,8 +76,25 @@ export class SalesDatePrediction implements OnInit, AfterViewInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
 
-    if (filterValue.length > 3)
-      console.log(filterValue);
+    if (filterValue.length > 0) {
+      this.isLoading = true;
+      this._customerService.getAllByCustomerName(filterValue).subscribe({
+        next: (response) => {
+          if (response) {
+            this._customerService.customers.set(response);
+            this.dataSource = new MatTableDataSource(this._customerService.customers());
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+        }
+      });
+    } else {
+      this.loadCustomers();
+    }
   }
 
   openOrdersView(customerId: number, customerName: string): void {

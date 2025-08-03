@@ -5,6 +5,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MessagesService {
      constructor(private _snackBar: MatSnackBar) {
           this._snackBar.dismiss();
+          this.cleanUp();
+     }
+
+     cleanUp() {
+          this._snackBar.open('', '', { duration: 1 });
      }
 
      information(message: string, action: string) {

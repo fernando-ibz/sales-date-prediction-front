@@ -5,64 +5,82 @@
 </div>
 
 <mat-dialog-content>
-  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+  <form [formGroup]="orderForm" class="flex flex-col gap-4">
     <div class="pt-4">
       <h1 class="text-xl text-black">Order</h1>
       <div class="pt-3">
         <div class="grid grid-cols-2 gap-4">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Employee</mat-label>
-            <mat-select required>
+            <mat-select formControlName="empId">
               <mat-option *ngFor="let employee of employees" [value]="employee.empId">
                 {{ `${employee.firstName} ${employee.lastName}` }}
               </mat-option>
             </mat-select>
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('empId')?.invalid && orderForm.get('empId')?.touched">
+              Employee is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Shipper</mat-label>
-            <mat-select required>
+            <mat-select formControlName="shipperId">
               <mat-option *ngFor="let shipper of shippers" [value]="shipper.shipperId">
                 {{ shipper.companyName }}
               </mat-option>
             </mat-select>
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('shipperId')?.invalid && orderForm.get('shipperId')?.touched">
+              Shipper is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="grid grid-cols-1">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Ship Name</mat-label>
-            <input matInput required>
+            <input matInput formControlName="shipName">
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('shipName')?.invalid && orderForm.get('shipName')?.touched">
+              Ship Name is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="grid grid-cols-3 gap-4">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Ship Address</mat-label>
-            <input matInput required>
+            <input matInput formControlName="shipAddress">
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('shipAddress')?.invalid && orderForm.get('shipAddress')?.touched">
+              Ship Address is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Ship Citty</mat-label>
-            <input matInput required>
+            <input matInput formControlName="shipCity">
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('shipCity')?.invalid && orderForm.get('shipCity')?.touched">
+              Ship Citty is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Ship Country</mat-label>
-            <input matInput required>
+            <input matInput formControlName="shipCountry">
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('shipCountry')?.invalid && orderForm.get('shipCountry')?.touched">
+              Ship Country is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="grid grid-cols-3 gap-4">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Order Date</mat-label>
-            <input matInput [matDatepicker]="orderDatePicker" required>
+            <input matInput [matDatepicker]="orderDatePicker" formControlName="orderDate">
             <mat-datepicker-toggle matSuffix [for]="orderDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #orderDatePicker></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Required Date</mat-label>
-            <input matInput [matDatepicker]="requiredDatePicker" required>
+            <input matInput [matDatepicker]="requiredDatePicker" formControlName="requiredDate">
             <mat-datepicker-toggle matSuffix [for]="requiredDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #requiredDatePicker></mat-datepicker>
           </mat-form-field>
-          <mat-form-field class="custom-mat-form-field">
+          <mat-form-field>
             <mat-label>Shipped Date</mat-label>
-            <input matInput [matDatepicker]="shippedDatePicker" required>
+            <input matInput [matDatepicker]="shippedDatePicker" formControlName="shippedDate">
             <mat-datepicker-toggle matSuffix [for]="shippedDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #shippedDatePicker></mat-datepicker>
           </mat-form-field>
@@ -70,41 +88,53 @@
         <div class="grid grid-cols-1">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Freight</mat-label>
-            <input matInput type="number" required placeholder="0.00" step="0.01" min="0" required>
+            <input matInput type="number" required placeholder="0.00" step="0.01" min="0" formControlName="freight">
+            <mat-error class="custom-mat-error" *ngIf="orderForm.get('freight')?.invalid && orderForm.get('freight')?.touched">
+              Freight is required
+            </mat-error>
             <span matPrefix>$&nbsp;</span>
           </mat-form-field>
         </div>
       </div>
     </div>
+  </form>
 
-    <mat-divider></mat-divider>
-
+  <form [formGroup]="orderDetailForm" class="flex flex-col gap-4">
     <div>
       <h1 class="text-xl text-black">Order Details</h1>
       <div class="py-3">
         <div class="grid grid-cols-1">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Product</mat-label>
-            <mat-select required>
+            <mat-select formControlName="productId">
               <mat-option *ngFor="let product of products" [value]="product.productId">
                 {{ product.productName }}
               </mat-option>
             </mat-select>
+            <mat-error class="custom-mat-error" *ngIf="orderDetailForm.get('productId')?.invalid && orderDetailForm.get('productId')?.touched">
+              Product is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="grid grid-cols-3 gap-4">
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Unit Price</mat-label>
-            <input matInput type="number" required placeholder="0.00" step="0.01" min="0" required>
+            <input matInput type="number" placeholder="0.00" step="0.01" min="0" formControlName="unitPrice">
+            <mat-error class="custom-mat-error" *ngIf="orderDetailForm.get('unitPrice')?.invalid && orderDetailForm.get('unitPrice')?.touched">
+              Unit Price is required
+            </mat-error>
             <span matPrefix>$&nbsp;</span>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Quantity</mat-label>
-            <input matInput type="number" required>
+            <input matInput type="number" formControlName="qty">
+            <mat-error class="custom-mat-error" *ngIf="orderDetailForm.get('qty')?.invalid && orderDetailForm.get('qty')?.touched">
+              Quantity is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="custom-mat-form-field">
             <mat-label>Discount</mat-label>
-            <input matInput required>
+            <input matInput type="number" placeholder="0.00" step="0.01" min="0" formControlName="discount">
           </mat-form-field>
         </div>
       </div>
@@ -114,7 +144,8 @@
 
 <mat-dialog-actions>
   <button mat-button mat-dialog-close class="custom-button-green">Close</button>
-  <button mat-raised-button class="custom-button-green" (click)="onSubmit()"
+  <button mat-raised-button class="custom-button-green"
+    [ngClass]="{'custom-button-gray': orderForm.invalid || isSubmitting}" (click)="onSubmit()"
     [disabled]="orderForm.invalid || isSubmitting">
     {{ isSubmitting ? 'Saving...' : 'Save' }}
   </button>

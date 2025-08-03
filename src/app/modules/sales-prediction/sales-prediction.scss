@@ -35,4 +35,13 @@
       padding: 0;
     }
   }
+
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+
+    border-color: gray;
+  }
 }

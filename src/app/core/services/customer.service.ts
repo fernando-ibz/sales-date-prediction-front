@@ -17,4 +17,10 @@ export class CustomerService {
       environment.apiBaseUrl,
       `Customers`);
   }
+
+  getAllByCustomerName(customerName: string): Observable<Customer[]> {
+    return this.commonHttpService.get<Customer[]>(
+      environment.apiBaseUrl,
+      `Customers/CustomerName?customerName=${customerName}`);
+  }
 }

@@ -22,5 +22,5 @@ export interface Order {
   customer?: Customer;
   employee?: Employee;
   shipper?: Shipper;
-  orderDetails?: OrderDetail[];
+  orderDetail?: OrderDetail;
 }
