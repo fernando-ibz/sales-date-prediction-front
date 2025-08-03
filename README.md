@@ -68,37 +68,37 @@ npm run e2e            # Ejecuta las pruebas end-to-end
 sales-date-prediction/
 ├── src/
 │   ├── app/
-│   │   ├── core/
+│   │   ├── core/                              # Servicios y funcionalidades centrales de la aplicación
 │   │   │   ├── interceptors/
-│   │   │   │   └── error.interceptor.ts      
-│   │   │   └── services/
-│   │   │       ├── common-http.service.ts 
-│   │   │       ├── customer.service.ts    
-│   │   │       ├── employee.service.ts   
-│   │   │       ├── messages.service.ts   
-│   │   │       ├── order.service.ts   
-│   │   │       ├── product.service.ts
-│   │   │       └── shipper.service.ts
-│   │   ├── modules/
-│   │   │   ├── d3-chart/
-│   │   │   ├── new-order/                      
-│   │   │   ├── orders-view/                    
-│   │   │   └── sales-prediction/
-│   │   └── shared/
+│   │   │   │   └── error.interceptor.ts       # Interceptor para manejo global de errores HTTP
+│   │   │   └── services/                      # Servicios singleton de negocio
+│   │   │       ├── common-http.service.ts     # Servicio base para peticiones HTTP
+│   │   │       ├── customer.service.ts        # Gestión de clientes y predicciones
+│   │   │       ├── employee.service.ts        # Gestión de empleados
+│   │   │       ├── messages.service.ts        # Servicio para notificaciones y mensajes
+│   │   │       ├── order.service.ts           # Gestión de órdenes (CRUD)
+│   │   │       ├── product.service.ts         # Gestión de productos
+│   │   │       └── shipper.service.ts         # Gestión de transportistas
+│   │   ├── modules/                           # Módulos funcionales de la aplicación
+│   │   │   ├── d3-chart/                      # Módulo para gráficos con D3.js
+│   │   │   ├── new-order/                     # Módulo para crear nuevas órdenes
+│   │   │   ├── orders-view/                   # Módulo para visualizar órdenes por cliente
+│   │   │   └── sales-prediction/              # Módulo principal - predicción de ventas
+│   │   └── shared/                            # Recursos compartidos entre módulos
 │   │       ├── assets/
-│   │       │   └── graphing-with-d3.html       
-│   │       └── models/
-│   │           ├── category.model.ts
-│   │           ├── customer.model.ts
-│   │           ├── employee.model.ts
-│   │           ├── order-detail.model.ts
-│   │           ├── order.model.ts
-│   │           ├── product.model.ts
-│   │           ├── shipper.model.ts
-│   │           └── supplier.model.ts
-│   └── environments/
-├── angular.json
-└── package.json
+│   │       │   └── graphing-with-d3.html      # Aplicación vanilla JS para gráficos D3
+│   │       └── models/                        # Modelos de datos
+│   │           ├── category.model.ts          # Modelo para categorías de productos
+│   │           ├── customer.model.ts          # Modelo de cliente con predicciones
+│   │           ├── employee.model.ts          # Modelo de empleado
+│   │           ├── order-detail.model.ts      # Modelo de detalle de orden
+│   │           ├── order.model.ts             # Modelo principal de orden
+│   │           ├── product.model.ts           # Modelo de producto
+│   │           ├── shipper.model.ts           # Modelo de transportista
+│   │           └── supplier.model.ts          # Modelo de proveedor
+│   └── environments/                          # Configuraciones por entorno
+├── angular.json                               # Configuración del workspace Angular
+└── package.json                               # Dependencias y scripts del proyecto
 ```
 
 ## 🎯 Funcionalidades Implementadas
