@@ -83,7 +83,7 @@ sales-date-prediction/
 │   │   │   ├── d3-chart/
 │   │   │   ├── new-order/                      
 │   │   │   ├── orders-view/                    
-│   │   │   └── sales-prediction
+│   │   │   └── sales-prediction/
 │   │   └── shared/
 │   │       ├── assets/
 │   │       │   └── graphing-with-d3.html       
