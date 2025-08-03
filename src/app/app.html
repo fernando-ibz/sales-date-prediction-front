@@ -1,38 +1,44 @@
-<header class="bg-black text-white py-4 px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
-  <div class="container mx-auto flex justify-between items-center">
-    <div class="flex items-center">
-      <button (click)="toggleMenu()" class="mr-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+<div class="flex flex-col min-h-screen">
+  <header class="bg-black text-white py-4 px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <button (click)="toggleMenu()" class="mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
 
-      <h1 class="text-xl">Sales Date Prediction App</h1>
+        <h1 class="text-xl">Sales Date Prediction App</h1>
+      </div>
+
+      <img
+        src="https://cloud-1de12d.b-cdn.net/media/iW=133&iH=79&oX=0&oY=0&cW=133&cH=79/3c7af13deb339c2f531619653131f837/NSerio-WhiteN-Transparent-small-0-1x.png"
+        alt="Logo" class="h-10 w-auto">
     </div>
+  </header>
 
-    <img
-      src="https://cloud-1de12d.b-cdn.net/media/iW=133&iH=79&oX=0&oY=0&cW=133&cH=79/3c7af13deb339c2f531619653131f837/NSerio-WhiteN-Transparent-small-0-1x.png"
-      alt="Logo" class="h-10 w-auto">
+  <div class="flex flex-1 pt-16">
+    <aside
+      class="bg-[#1a1a1a] text-white fixed top-16 left-0 bottom-0 w-64 z-40 shadow-lg transform transition-transform duration-300 ease-in-out"
+      [class.-translate-x-full]="!menuOpen">
+      <nav class="p-4 h-full flex flex-col">
+        <button (click)="navigateToSalesDatePrediction()"
+          class="w-full text-left px-4 py-3 mb-2 bg-gray-800 hover:bg-gray-900 rounded cursor-pointer transition-colors">
+          Customers
+        </button>
+
+        <button (click)="navigateToD3Chart()"
+          class="w-full text-left px-4 py-3 mb-2 bg-gray-800 hover:bg-gray-900 rounded cursor-pointer transition-colors">
+          D3 Chart
+        </button>
+      </nav>
+    </aside>
+
+    <main class="flex-grow min-h-screen bg-gray-50 transition-all duration-300 ease-in-out pl-0"
+      [class.pl-64]="menuOpen">
+      <div class="container mx-auto py-8 px-4">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
   </div>
-
-  <div class="bg-black absolute top-full left-0 right-0 shadow-lg transition-all duration-300"
-    [class.hidden]="!menuOpen">
-    <div class="container mx-auto py-2 px-6 flex flex-col">
-      <button (click)="navigateToSalesDatePrediction(); toggleMenu()"
-        class="px-4 py-3 text-left hover:bg-gray-800 rounded cursor-pointer transition-colors">
-        Sales Date Prediction App
-      </button>
-
-      <button (click)="navigateToD3Chart(); toggleMenu()"
-        class="px-4 py-3 text-left hover:bg-gray-800 rounded cursor-pointer transition-colors">
-        D3 Chart
-      </button>
-    </div>
-  </div>
-</header>
-
-<main class="min-h-screen bg-gray-50 pt-16">
-  <div class="container mx-auto py-8">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+</div>
