@@ -43,17 +43,12 @@ dotnet run
 cd sales-date-prediction-front
 npm install
 
-# Configurar la URL del API en environment.ts
+# Configurar la URL del API en environment.ts 
 # Ejecutar en modo desarrollo
 ng serve
 ```
 
 La aplicación estará disponible en `http://localhost:4200`
-
-### Backend
-```bash
-dotnet run             # Inicia la API
-```
 
 ## 🛠️ Scripts Disponibles
 
@@ -136,7 +131,7 @@ sales-date-prediction/
 ```typescript
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5001/api',
+  apiUrl: 'https://localhost:7017/api',
   enableLogging: true
 };
 ```
@@ -198,10 +193,24 @@ dotnet test --collect:"XPlat Code Coverage"
 
 ## 🙏 Agradecimientos
 
-- Entity Framework Core Team
-- .NET Community
-- Swagger/OpenAPI Initiative
+Agradecemos especialmente a:
 
+- **El equipo de desarrollo** por proporcionar una prueba técnica bien estructurada y detallada
+- **Microsoft** por el ecosistema .NET Core y las herramientas de desarrollo
+- **Angular Team** por el framework Angular y sus constantes mejoras
+- **Tailwind CSS** por facilitar el desarrollo de interfaces modernas y responsivas
+- **D3.js Community** por la biblioteca de visualización de datos
+- **SQL Server Team** por la robusta base de datos utilizada
+- **Open Source Community** por todas las librerías y herramientas que hacen posible este proyecto
+
+### Recursos y Referencias
+
+- [Angular Documentation](https://angular.io/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [.NET Core Documentation](https://docs.microsoft.com/en-us/dotnet/core/)
+- [SQL Server Documentation](https://docs.microsoft.com/en-us/sql/sql-server/)
+- [D3.js Documentation](https://d3js.org/)
+  
 ## 📞 Soporte
 
 ¿Tienes preguntas o problemas? 
